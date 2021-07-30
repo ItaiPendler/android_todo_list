@@ -8,5 +8,6 @@
     <string name="clear_button_text">clear</string>
     <string name="no_blank_todo">Can\'t add a blank todo!</string>
     <string name="add_a_todo">Add A Todo</string>
+    <string name="mark_todo">Mark As Done</string>
     <string name="no_todos">You Don\'t Have Any Todos! Write One</string>
 </resources>

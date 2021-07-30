@@ -8,4 +8,5 @@
     <string name="no_blank_todo">אופס! נראה ששכחת לכתוב משהו</string>
     <string name="no_todos">נראה שעוד לא כתבת כלום, בוא נתקן את זה</string>
     <string name="add_a_todo">לדוגמא: לרוץ</string>
+    <string name="mark_todo">סמן כבוצע</string>
 </resources>
