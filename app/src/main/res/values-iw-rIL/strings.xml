@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">שם אפליקציה</string>
+    <string name="starting_text">לחץ כאן כדי להתחיל</string>
+    <string name="next_button_text">הבא</string>
+    <string name="string_set_key">list</string>
+    <string name="shared_prefrences_file">todoList</string>
+    <string name="clear_button_text">מחק הכל</string>
+    <string name="enter_button_text">הכנס</string>
+</resources>
