@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun deleteATodo() {
-            if (stringArr.size == 0) {
+            if (stringArr.size == 0 || helloWorldTextView.text == getString(R.string.starting_text)) {
                 Toast.makeText(
                     applicationContext,
                     getString(R.string.no_todos),
