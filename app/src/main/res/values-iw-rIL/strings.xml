@@ -3,8 +3,9 @@
     <string name="app_name">שם אפליקציה</string>
     <string name="starting_text">לחץ כאן כדי להתחיל</string>
     <string name="next_button_text">הבא</string>
-    <string name="string_set_key">list</string>
-    <string name="shared_prefrences_file">todoList</string>
     <string name="clear_button_text">מחק הכל</string>
     <string name="enter_button_text">הכנס</string>
+    <string name="no_blank_todo">אופס! נראה ששכחת לכתוב משהו</string>
+    <string name="no_todos">נראה שעוד לא כתבת כלום, בוא נתקן את זה</string>
+    <string name="add_a_todo">לדוגמא: לרוץ</string>
 </resources>

@@ -2,8 +2,11 @@
     <string name="app_name">test</string>
     <string name="starting_text" translatable="true">Click Here To Start</string>
     <string name="enter_button_text">Enter</string>
-    <string name="shared_prefrences_file">todoList</string>
-    <string name="string_set_key">list</string>
+    <string name="shared_prefrences_file" translatable="false">todoList</string>
+    <string name="string_set_key" translatable="false">list</string>
     <string name="next_button_text">next</string>
     <string name="clear_button_text">clear</string>
+    <string name="no_blank_todo">Can\'t add a blank todo!</string>
+    <string name="add_a_todo">Add A Todo</string>
+    <string name="no_todos">You Don\'t Have Any Todos! Write One</string>
 </resources>
