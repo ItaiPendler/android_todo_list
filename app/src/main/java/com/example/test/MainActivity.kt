@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         //removing all blank todos
         stringArr.removeIf { todo -> todo.isBlank() }
 
+        nextButton.isEnabled = stringArr.isNotEmpty()
         val fadeIn = AlphaAnimation(0f, 1f)
         fadeIn.interpolator = DecelerateInterpolator()
         fadeIn.duration = 500
@@ -41,8 +42,30 @@ class MainActivity : AppCompatActivity() {
         fadeOut.duration = 500
         var index = 0
 
+        fun goToNextTodo() {
+            if (stringArr.size == 0) {
+                Toast.makeText(
+                    applicationContext,
+                    "You Don't Have Any Todos! Write One",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return
+            }
+            if (index == stringArr.size) {
+                index = 0
+            }
+            helloWorldTextView.startAnimation(fadeOut)
+        }
 
-        enterButton.setOnClickListener {
+        fun deleteList() {
+            preferences.edit().remove(getString(R.string.string_set_key)).apply()
+            index = 0
+            stringArr.clear()
+            nextButton.isEnabled = false
+            helloWorldTextView.text = getString(R.string.starting_text)
+        }
+
+        fun commitATodo() {
             val tempText = editText.text.toString()
             if (tempText.isNotEmpty()) {
                 stringArr.add(tempText)
@@ -51,19 +74,20 @@ class MainActivity : AppCompatActivity() {
                     putString(getString(R.string.string_set_key), stringToSave)
                     apply()
                 }
+                nextButton.isEnabled = true
             } else {
                 Toast.makeText(applicationContext, "Can't add a blank todo!", Toast.LENGTH_SHORT)
                     .show()
             }
             editText.text.clear()
         }
+
+        enterButton.setOnClickListener { commitATodo() }
+
         fadeOut.setAnimationListener(object : AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
             override fun onAnimationRepeat(animation: Animation) {}
             override fun onAnimationEnd(animation: Animation) {
-                if (index == stringArr.size) {
-                    index = 0
-                }
                 val stringToShow = stringArr[index++]
                 helloWorldTextView.text = stringToShow
 
@@ -80,15 +104,16 @@ class MainActivity : AppCompatActivity() {
         helloWorldTextView.startAnimation(fadeIn)
 
         helloWorldTextView.setOnClickListener {
-            helloWorldTextView.startAnimation(fadeOut)
+            goToNextTodo()
         }
 
+
+
         nextButton.setOnClickListener {
-            helloWorldTextView.startAnimation(fadeOut)
+            goToNextTodo()
         }
         clearButton.setOnClickListener {
-            preferences.edit().remove(getString(R.string.string_set_key)).apply()
-            stringArr.clear()
+            deleteList()
         }
     }
 }
