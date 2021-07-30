@@ -1,4 +1,4 @@
-package com.example.test
+package com.PendlerBros.todosApp
 
 import android.content.Context
 import android.os.Bundle
