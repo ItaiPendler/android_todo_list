@@ -12,29 +12,46 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/hello_world_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/starting_text"
-            android:textAlignment="center"
-            android:textSize="50sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="type a todo"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteY="406dp" />
+            <TextView
+                android:id="@+id/hello_world_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/starting_text"
+                android:textAlignment="center"
+                android:textSize="50sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/add_a_todo"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteY="406dp" />
+
+            <Button
+                android:id="@+id/enterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_button_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:layout_height="wrap_content">
+            android:gravity="center">
 
             <Button
                 android:id="@+id/clearButton"
@@ -42,11 +59,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/clear_button_text" />
 
-            <Button
-                android:id="@+id/enterButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/enter_button_text" />
 
             <Button
                 android:id="@+id/nextButton"
