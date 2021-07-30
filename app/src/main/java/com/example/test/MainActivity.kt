@@ -11,6 +11,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -28,34 +29,32 @@ class MainActivity : AppCompatActivity() {
         val prefString = preferences.getString(getString(R.string.string_set_key), "") ?: ""
         val stringArr = mutableListOf<String>()
         stringArr.addAll(0, prefString.split(','))
-        if (stringArr.elementAt(0).isEmpty()) {
-            stringArr.removeAt(0)
-        }
-        println(stringArr.toString())
+
+        //removing all blank todos
+        stringArr.removeIf { todo -> todo.isBlank() }
 
         val fadeIn = AlphaAnimation(0f, 1f)
-        fadeIn.interpolator = DecelerateInterpolator() //add this
+        fadeIn.interpolator = DecelerateInterpolator()
         fadeIn.duration = 500
         val fadeOut = AlphaAnimation(1f, 0f)
-        fadeOut.interpolator = AccelerateInterpolator() //and this
+        fadeOut.interpolator = AccelerateInterpolator()
         fadeOut.duration = 500
         var index = 0
 
 
         enterButton.setOnClickListener {
             val tempText = editText.text.toString()
-            if (!tempText.isEmpty()) {
+            if (tempText.isNotEmpty()) {
                 stringArr.add(tempText)
-                println(tempText)
-                println(stringArr)
                 with(preferences.edit()) {
                     val stringToSave = stringArr.toTypedArray().joinToString(",")
                     putString(getString(R.string.string_set_key), stringToSave)
                     apply()
                 }
+            } else {
+                Toast.makeText(applicationContext, "Can't add a blank todo!", Toast.LENGTH_SHORT)
+                    .show()
             }
-            println(stringArr.toString())
-            println(tempText)
             editText.text.clear()
         }
         fadeOut.setAnimationListener(object : AnimationListener {
