@@ -18,12 +18,14 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.supportActionBar?.hide()
         setContentView(R.layout.activity_main)
         val helloWorldTextView = findViewById<TextView>(R.id.hello_world_text)
         val editText = findViewById<EditText>(R.id.edittext)
         val enterButton = findViewById<Button>(R.id.enterButton)
         val nextButton = findViewById<Button>(R.id.nextButton)
         val clearButton = findViewById<Button>(R.id.clearButton)
+        val markTodoButton = findViewById<Button>(R.id.markTodoButton)
 
         val preferences = this.getPreferences(Context.MODE_PRIVATE)
         val prefString = preferences.getString(getString(R.string.string_set_key), "") ?: ""
@@ -46,9 +48,10 @@ class MainActivity : AppCompatActivity() {
             if (stringArr.size == 0) {
                 Toast.makeText(
                     applicationContext,
-                    "You Don't Have Any Todos! Write One",
+                    getString(R.string.no_todos),
                     Toast.LENGTH_SHORT
                 ).show()
+                helloWorldTextView.text = getString(R.string.starting_text)
                 return
             }
             if (index == stringArr.size) {
@@ -58,31 +61,59 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun deleteList() {
-            preferences.edit().remove(getString(R.string.string_set_key)).apply()
             index = 0
             stringArr.clear()
+            preferences.edit().remove(getString(R.string.string_set_key)).apply()
             nextButton.isEnabled = false
             helloWorldTextView.text = getString(R.string.starting_text)
         }
 
-        fun commitATodo() {
-            val tempText = editText.text.toString()
-            if (tempText.isNotEmpty()) {
-                stringArr.add(tempText)
-                with(preferences.edit()) {
-                    val stringToSave = stringArr.toTypedArray().joinToString(",")
-                    putString(getString(R.string.string_set_key), stringToSave)
-                    apply()
-                }
-                nextButton.isEnabled = true
-            } else {
-                Toast.makeText(applicationContext, "Can't add a blank todo!", Toast.LENGTH_SHORT)
-                    .show()
+        fun updateSavedList() {
+            with(preferences.edit()) {
+                val stringToSave = stringArr.toTypedArray().joinToString(",")
+                putString(getString(R.string.string_set_key), stringToSave)
+                apply()
             }
-            editText.text.clear()
         }
 
-        enterButton.setOnClickListener { commitATodo() }
+        fun addTodoToList(todo: String) {
+            stringArr.add(todo)
+            updateSavedList()
+        }
+
+        fun deleteATodo() {
+            if (stringArr.size == 0) {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.no_todos),
+                    Toast.LENGTH_SHORT
+                ).show()
+                helloWorldTextView.text = getString(R.string.starting_text)
+                return
+            }
+            stringArr.removeAt(--index)
+            updateSavedList()
+            goToNextTodo()
+        }
+
+
+        enterButton.setOnClickListener {
+
+            val tempText = editText.text.toString()
+            if (tempText.isNotEmpty()) {
+                addTodoToList(tempText)
+                nextButton.isEnabled = true
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.no_blank_todo),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+
+            editText.text.clear()
+        }
 
         fadeOut.setAnimationListener(object : AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
@@ -115,5 +146,7 @@ class MainActivity : AppCompatActivity() {
         clearButton.setOnClickListener {
             deleteList()
         }
+
+        markTodoButton.setOnClickListener { deleteATodo() }
     }
 }
