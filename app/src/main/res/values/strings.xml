@@ -3,4 +3,6 @@
     <string name="enter_button_text">Enter</string>
     <string name="shared_prefrences_file">todoList</string>
     <string name="string_set_key">list</string>
+    <string name="next_button_text">next</string>
+    <string name="clear_button_text">clear</string>
 </resources>
